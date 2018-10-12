@@ -1,7 +1,7 @@
-import { createBottomTabNavigator } from 'react-navigation';
 import HomeScreen from './src/components/HomeScreen.js';
 import WizardWrapper from './src/components/WizardWrapper';
 import LoginScreenContainer from './src/components/LoginScreenContainer'
+import ProfileScreenWrapper from './src/components/ProfileScreenWrapper'
 import React from 'react'
 import {
   ActivityIndicator,
@@ -11,7 +11,7 @@ import {
   StyleSheet,
   View,
 } from 'react-native';
-import { createStackNavigator, createSwitchNavigator } from 'react-navigation';
+import { createStackNavigator, createSwitchNavigator, createBottomTabNavigator } from 'react-navigation';
 
 
 class App extends React.Component  {
@@ -65,7 +65,7 @@ class AuthLoadingScreen extends React.Component {
 }
 
 
-const AppStack = createStackNavigator({ Home: HomeScreen, App: App});
+const AppStack = createBottomTabNavigator({ Home: HomeScreen, Profile: ProfileScreenWrapper});
 const AuthStack = createStackNavigator({ SignUp: WizardWrapper, SignIn: LoginScreenContainer });
 
 export default createSwitchNavigator(

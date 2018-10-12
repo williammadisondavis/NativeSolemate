@@ -1,8 +1,9 @@
 import React from 'react';
 import { StyleSheet, Text, View, Button, AsyncStorage } from 'react-native';
 
-class HomeScreen extends React.Component {
-  _signOutAsync = async () => {
+class ProfileScreenWrapper extends React.Component {
+  
+    _signOutAsync = async () => {
     await AsyncStorage.clear();
     this.props.navigation.navigate('Auth');
   };
@@ -10,10 +11,10 @@ class HomeScreen extends React.Component {
   render() {
     return (
       <View style={styles.container}>
-        <Text>Home!</Text>
+        <Text>Profile</Text>
         <Button
-          title="Go to Profile"
-          onPress={() => this.props.navigation.navigate('Profile')}
+          title="Go to Home"
+          onPress={() => this.props.navigation.navigate('Home')}
         />
         <Button
           title="SignOut"
@@ -30,4 +31,4 @@ const styles = StyleSheet.create({
     container: { flex: 1, justifyContent: 'center', alignItems: 'center' },
   });
   
-export default HomeScreen;
+export default ProfileScreenWrapper;
