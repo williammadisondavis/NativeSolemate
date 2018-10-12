@@ -1,10 +1,9 @@
 import React, { PureComponent } from 'react';
-import { View, Button, StyleSheet } from 'react-native';
+import { View, Button, StyleSheet, Text } from 'react-native';
 
 class Step extends PureComponent {
   constructor(props) {
     super(props)
-    console.log(this);
     }
   state = {};
   render() {
@@ -15,6 +14,7 @@ class Step extends PureComponent {
           values: this.props.values,
         })}
         <View style={styles.buttonWrapper}>
+          {/* <Text> here </Text> */}
           <Button
             title="Previous"
             disabled={this.props.currentIndex === 0}

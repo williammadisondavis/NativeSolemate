@@ -18,37 +18,46 @@ let generateToken = (username, id) => {
         return token;
     }
 
-    //this will be used on signin
 let createProfileToken = (email, pword) => {
-    console.log('here')
     let password = pword;
     let useremail = email;
 
     return dbq.UserLogin(useremail, password)
         .then(results => {
-            console.log(results);
             if (results.password === password && results.email === useremail) {
-                console.log("im here");
                 return generateToken(results.email, results.id)
             } else {
                 throw 'invalid credentials';
             }
         })
+        .catch(error=>{console.log(error)});
     };
+
+let generateTokenHelper = (req, res) => {
+    let email = req.body.email;
+    let password = req.body.password;
+    return createProfileToken(email, password)
+    .then(token => {
+        if (token === undefined) {
+            res.send({error: 'error'})
+        } else {
+        res.send({token})
+        }
+    })
+}
 
 let newUser = (req, res) => {
     let newUserEmail = req.body.email;
     let userEmailTaken = {response: "Username Taken"};
-    console.log('madeit')
     
     dbq.ValidateUser(newUserEmail)
         .then(results => {
             if(results === undefined || results.length == 0) {
                 
-                console.log(req.body)
+                // console.log(req.body)
                 dbq.RegisterUser(req.body)
                     .then(results => {
-                        console.log(results.email, results.password)
+                        // console.log(results.email, results.password)
                         
                         createProfileToken(
                             req.body.email, req.body.password)
@@ -60,55 +69,17 @@ let newUser = (req, res) => {
                                 };
                                 console.log(newObj)
                                 res.send(newObj);
-                            }).catch(error=>{console.log(error)})
+                            }).catch(error=>{return(error)})
                     })
             } else {
                 res.set('Content-Type', 'application/json')
                 res.send(JSON.stringify(userEmailTaken));
             }
         })
-        .catch(error=>console.log(error))
+        .catch(error=>{return (error)})
 }
 
-let testDb = (req, res) => {
-    console.log(req.body.username)
-    dbq.ValidateUser(req.body.username)
-    .then(results=>console.log(results))
-    .catch(error=>console.log(error))
-    // console.log(req)
-    res.send('hello')
-}
 
-server.post('/db', testDb)
-// server.post('/login', generateToken);
-// server.post('/checktoken', validateToken);
+server.post('/login', generateTokenHelper);
 server.post('/register', newUser);
 server.listen(3005);
-
-let validateToken = (req, res) => {
-    let responseObject = {
-                        response: null,
-                        payload: null
-                        };
-    let token = req.body.webtoken
-    let isValid;
-    let payload;
-    try {
-        let decoded = jwt.verify(token, STORAGE_KEY, {"alg": "HS256", "typ": "JWT"});
-        isValid = true;
-        req.user = decoded.payload;
-        responseObject.payload = payload;
-    } catch (err) {
-        isValid = false;
-    }
-    //creates a new property for the request object, called user
-    if (isValid) {
-        responseObject.response = "Logged in";
-        res.send(responseObject);
-    } else {
-        responseObject.response = "Invalid login";
-        res.send(responseObject);
-    }
-}
-
-

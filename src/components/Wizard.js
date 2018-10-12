@@ -47,15 +47,13 @@ class Wizard extends PureComponent {
   };
 
   onSubmit = () => {
-    //   console.log(this.state.values)
     handleInput = async() => {
         const res = await axios.post('http://localhost:3005/register', {
            email: this.state.values.email,
            password: this.state.values.password
         });
         const data = await res.data;
-        console.log(data)
-        if (data.jwt !== true) {
+        if (data.jwt === undefined) {
           Alert.alert('Invalid Email, this one already exists. Try again')
         } else {
         this.setState({jwt: data.jwt})
@@ -66,7 +64,6 @@ class Wizard extends PureComponent {
   };
 
   render() {
-    console.log('values', this.state);
     return (
       <View style={{ flex: .8 }}>
       <Text style={styles.container}> Sign Up! </Text>

@@ -14,19 +14,20 @@ const forms = [
     name: 'lastName',
   },
   {
-    handle: 'Email here...',
+    handle: 'Your Email here',
     name: 'email',
+    description: '',
   },
   {
     handle: 'What will be your password?',
     name: 'password',
+    description: '', 
   }
 ];
 
 export default class WizardWrapper extends React.Component {
   constructor(props) {
   super(props)
-  console.log(this);
   }
   render() {
     return (
@@ -39,7 +40,7 @@ export default class WizardWrapper extends React.Component {
             email: '',
             password: '',
           }}
-          // navigation={this.props.navigation.navigate}
+          navigation={this.props.navigation.navigate}
         >
           {forms.map(e => (
             <Wizard.Step key={e.name} navigation={this.props.navigation.navigate}> 
@@ -68,16 +69,16 @@ const styles = StyleSheet.create({
     flex: 1,
     flexDirection: 'column-reverse',
     
-    backgroundColor: 'white'
+    backgroundColor: '#b1c5c6'
   },
   entireContainer: {
     flex: 1,
-    backgroundColor: 'white',
+    backgroundColor: '#b1c5c6',
     zIndex: 3,
   },
   container: {
     flex: 3,
-    backgroundColor: 'white',
+    backgroundColor: '#b1c5c6',
     justifyContent: 'space-between',
     alignItems: 'center',
     justifyContent: 'center',

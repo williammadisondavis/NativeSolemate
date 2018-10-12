@@ -1,8 +1,7 @@
 import { createBottomTabNavigator } from 'react-navigation';
 import HomeScreen from './src/components/HomeScreen.js';
-import SignUpScreenWrapper from './src/components/SignupScreen';
 import WizardWrapper from './src/components/WizardWrapper';
-import LoginScreenWrapper from './src/components/LoginScreenWrapper'
+import LoginScreenContainer from './src/components/LoginScreenContainer'
 import React from 'react'
 import {
   ActivityIndicator,
@@ -67,7 +66,7 @@ class AuthLoadingScreen extends React.Component {
 
 
 const AppStack = createStackNavigator({ Home: HomeScreen, App: App});
-const AuthStack = createStackNavigator({ SignUp: WizardWrapper, SignIn: SignUpScreenWrapper });
+const AuthStack = createStackNavigator({ SignUp: WizardWrapper, SignIn: LoginScreenContainer });
 
 export default createSwitchNavigator(
   {
