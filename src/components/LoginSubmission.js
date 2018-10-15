@@ -20,12 +20,13 @@ class LoginSubmission extends React.Component {
             email: '',
             password: '',
             }
+            id: {}
             jwt: {};
         }
         
     _signInAsync = async () => {
-        await AsyncStorage.setItem('userToken', this.state.jwt);
-        this.props.navigation('App');
+        await AsyncStorage.multiSet([ ['userToken', this.state.jwt] , ['id', JSON.stringify(this.state.id)]])
+        .then(this.props.navigation('App'));
         };
 
     submitForm = (e) => {
@@ -39,7 +40,9 @@ class LoginSubmission extends React.Component {
             if (data.token === undefined) {
                 Alert.alert('Invalid Email, Please try again.')
                 } else {
-                this.setState({jwt: data.token})
+                this.setState({id: data.token.id})
+                this.setState({jwt: data.token.token})
+                    
                 this._signInAsync()
                 }
         }

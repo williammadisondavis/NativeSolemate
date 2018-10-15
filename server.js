@@ -15,7 +15,8 @@ let generateToken = (username, id) => {
         userid: id},
         STORAGE_KEY,
         {expiresIn: '7d'})
-        return token;
+        console.log(id)
+        return {token, id};
     }
 
 let createProfileToken = (email, pword) => {
@@ -24,6 +25,7 @@ let createProfileToken = (email, pword) => {
 
     return dbq.UserLogin(useremail, password)
         .then(results => {
+            console.log(results)
             if (results.password === password && results.email === useremail) {
                 return generateToken(results.email, results.id)
             } else {
@@ -57,7 +59,7 @@ let newUser = (req, res) => {
                 // console.log(req.body)
                 dbq.RegisterUser(req.body)
                     .then(results => {
-                        // console.log(results.email, results.password)
+                        console.log(results)
                         
                         createProfileToken(
                             req.body.email, req.body.password)
@@ -67,7 +69,7 @@ let newUser = (req, res) => {
                                     jwt: token
                                     
                                 };
-                                console.log(newObj)
+                                // console.log(newObj)
                                 res.send(newObj);
                             }).catch(error=>{return(error)})
                     })
@@ -79,7 +81,19 @@ let newUser = (req, res) => {
         .catch(error=>{return (error)})
 }
 
-
+let retrieveProfile = (req, res) => {
+    console.log(req.params)
+    dbq.ListUserByID(req.params.id)
+    .then((user, error) => {
+        if (user !== null) {
+            console.log(user)
+        res.send(user)
+        } else {
+            res.send({error: error})
+        }
+    })
+}
+server.get('/users/:id', retrieveProfile);
 server.post('/login', generateTokenHelper);
 server.post('/register', newUser);
 server.listen(3005);

@@ -1,32 +1,20 @@
 import HomeScreen from './src/components/HomeScreen.js';
 import WizardWrapper from './src/components/WizardWrapper';
-import LoginScreenContainer from './src/components/LoginScreenContainer'
-import ProfileScreenWrapper from './src/components/ProfileScreenWrapper'
+import LoginScreenContainer from './src/components/LoginScreenContainer';
+import ProfileScreenWrapper from './src/components/ProfileScreenWrapper';
+import EditGoals from './src/components/GoalsScreen'
+import { createStackNavigator, createSwitchNavigator, createBottomTabNavigator } from 'react-navigation';
+import { Provider } from 'react-redux';
+import store from './src/components/store';
 import React from 'react'
 import {
   ActivityIndicator,
   AsyncStorage,
-  Button,
   StatusBar,
   StyleSheet,
   View,
 } from 'react-native';
-import { createStackNavigator, createSwitchNavigator, createBottomTabNavigator } from 'react-navigation';
 
-
-class App extends React.Component  {
-  render()
-  {
-    return <View><Text>hi</Text></View>
-  }
-}
-
-// let tabNav = createBottomTabNavigator({
-//   Home: HomeScreen,
-//   Profile: SignUpScreenWrapper,
-//   Signup: WizardWrapper,
-//   Login: LoginScreenWrapper
-// });
 
 const styles = StyleSheet.create({
   container: {
@@ -64,11 +52,13 @@ class AuthLoadingScreen extends React.Component {
   }
 }
 
-
-const AppStack = createBottomTabNavigator({ Home: HomeScreen, Profile: ProfileScreenWrapper});
+const ProfileStack = createStackNavigator({Profile: ProfileScreenWrapper, GoalsScreen: EditGoals})
+const AppStack = createBottomTabNavigator({ Home: HomeScreen, Profile: ProfileStack});
 const AuthStack = createStackNavigator({ SignUp: WizardWrapper, SignIn: LoginScreenContainer });
 
-export default createSwitchNavigator(
+
+
+let Solemate = createSwitchNavigator(
   {
     AuthLoading: AuthLoadingScreen,
     App: AppStack,
@@ -78,3 +68,11 @@ export default createSwitchNavigator(
     initialRouteName: 'AuthLoading',
   }
 );
+
+let App = () => 
+  <Provider store={store}>
+      <Solemate />
+  </Provider>
+
+export default App
+

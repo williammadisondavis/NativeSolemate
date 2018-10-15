@@ -16,8 +16,8 @@ module.exports = {
         WHERE email = '` + email + `';`);
     },
     RegisterUser: function (newUser) {
-         return db.one(`INSERT INTO users (password, email, first, last) values    
-         ('` + newUser.password + `', '` + newUser.email + `', '` + newUser.first + `', '` + newUser.last + `')
+         return db.one(`INSERT INTO users (password, email, first, last, description, location, goal1, goal2, goal3) values    
+         ('` + newUser.password + `', '` + newUser.email + `', '` + newUser.first + `', '` + newUser.last + `', '` + newUser.description + `', '` + newUser.location + `', '` + newUser.goal1 + `', '` + newUser.goal2 + `', '` + newUser.goal3+ `')
             RETURNING *;`);  
     },
     UserLogin: function (email, password) {
@@ -25,5 +25,10 @@ module.exports = {
         FROM users
         WHERE email = '` + email + `'
         AND password = '` + password + `';`)
+    },
+    ListUserByID: function (id) {
+        return db.one(`SELECT *
+            FROM users
+            WHERE id = '` + id + `';`);
     }
   };

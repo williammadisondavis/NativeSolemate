@@ -5,6 +5,7 @@ import axios from 'axios';
 import Step from './Step';
 
 class Wizard extends PureComponent {
+  
   static Step = Step;
 
   state = {
@@ -12,6 +13,7 @@ class Wizard extends PureComponent {
     values: {
       ...this.props.initialValues,
     },
+    id: {},
     jwt: {}
   };
 
@@ -42,7 +44,7 @@ class Wizard extends PureComponent {
   };
   
   _signInAsync = async () => {
-    await AsyncStorage.setItem('userToken', this.state.jwt);
+    await AsyncStorage.multiSet([ ['userToken', this.state.jwt] , ['id', JSON.stringify(this.state.id)]])
     this.props.navigation('App');
   };
 
@@ -50,14 +52,22 @@ class Wizard extends PureComponent {
     handleInput = async() => {
         const res = await axios.post('http://localhost:3005/register', {
            email: this.state.values.email,
-           password: this.state.values.password
+           password: this.state.values.password,
+           first: this.state.values.first,
+           last: this.state.values.last,
+           description: this.state.values.description,
+           location: this.state.values.location,
+           goal1: '',
+           goal2: '',
+           goal3: ''
         });
         const data = await res.data;
         if (data.jwt === undefined) {
           Alert.alert('Invalid Email, this one already exists. Try again')
         } else {
-        this.setState({jwt: data.jwt})
-        this._signInAsync()
+          this.setState({id: data.jwt.id})
+          this.setState({jwt: data.jwt.token})
+          this._signInAsync()
         }
       };
     handleInput()

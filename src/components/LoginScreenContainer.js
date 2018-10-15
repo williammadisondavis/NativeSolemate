@@ -28,7 +28,7 @@ class LoginScreenContainer extends React.Component {
 const styles = StyleSheet.create({
     root: {
       flex: 1,     
-      backgroundColor: '#b1c5c6'
+      backgroundColor: '#FFE5CC'
     },
     container: {
         flex: 1
