@@ -86,7 +86,7 @@ let retrieveProfile = (req, res) => {
     dbq.ListUserByID(req.params.id)
     .then((user, error) => {
         if (user !== null) {
-            // console.log(user)
+            console.log(user)
         res.send(user)
         } else {
             res.send({error: error})
@@ -96,7 +96,7 @@ let retrieveProfile = (req, res) => {
 
 
 let setUserGoals = (req, res) => {
-    // console.log(req.body);
+
     //if they send empty body is should be able to remove goals
     storeGoals = (data) => {
         let userID = data.id;

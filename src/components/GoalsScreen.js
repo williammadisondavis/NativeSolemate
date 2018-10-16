@@ -2,8 +2,14 @@ import React from 'React';
 import { Text, View, TouchableOpacity, StyleSheet, AsyncStorage } from 'react-native';
 import { CheckBox } from 'react-native-elements';
 import axios from 'axios';
+import getGoals from './getGoals';
+import { connect } from 'react-redux';
 
-export default class EditGoals extends React.Component {
+let mapStateToProps = (state) => {
+    return state
+}
+
+class EditGoals extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -21,43 +27,18 @@ export default class EditGoals extends React.Component {
             this.setState({ checked: checked.filter(a => a !== item) });
         }
     };
-    SubmitGoals = () => {
+    
+    submitGoals = async () => {
 
-
-        handleInput = async () => {
-
-            getIdAsync = async () => {
-                try {
-                    let userID = await AsyncStorage.getItem('id');
-                    if (userID !== null) {
-                        const res = await axios.post('http://localhost:3005/goals/', {
-                            id: userID,
-                            goals: this.state.checked
-                        });
-                        const data = await res.data;
-                        // this.state.goals.push
-                        console.log(data)
-                    }
-
-
-                } catch (err) {
-                    console.log(err);
-                }
-
-            };
-
-            getIdAsync();
-
-
-            // if (data.jwt === undefined) {
-            //   Alert.alert('Invalid Email, this one already exists. Try again')
-            // } else {
-            //   this.setState({id: data.jwt.id})
-            //   this.setState({jwt: data.jwt.token})
-            //   this._signInAsync()
-            // }
-        };
-        handleInput()
+        let userID = await AsyncStorage.getItem('id');
+        if (userID !== null) {
+            const res = await axios.post('http://localhost:3005/goals/', {
+                id: userID,
+                goals: this.state.checked
+            });
+            const data = await res.data;
+            getGoals(this.props.dispatch);
+        }
     }
 
     render() {
@@ -97,7 +78,7 @@ export default class EditGoals extends React.Component {
                     checked={this.state.checked.includes('Marathon')}
                 />
 
-                <TouchableOpacity style={styles.buttonContainerLeave} onPress={() => this.SubmitGoals()}>
+                <TouchableOpacity style={styles.buttonContainerLeave} onPress={this.submitGoals}>
                     <Text style={styles.button}>Confirm Goals</Text>
                 </TouchableOpacity>
 
@@ -136,3 +117,5 @@ const styles = StyleSheet.create({
         color: 'white',
     }
 })
+
+export default connect(mapStateToProps)(EditGoals);

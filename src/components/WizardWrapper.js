@@ -44,7 +44,6 @@ class WizardWrapper extends React.Component {
   }
   render() {
     return (
-      // <View style={styles.entireContainer}>
       <View style={styles.root}>
         <Wizard
           initialValues={{
@@ -78,7 +77,6 @@ class WizardWrapper extends React.Component {
           ))}
         </Wizard>
       </View>
-      // </View>
     );
   }
 }

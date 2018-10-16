@@ -2,28 +2,25 @@ import { createStore } from 'redux';
 
 let reducer = (oldState, action) => {
     if (action.type === 'NEW_USER_PROFILE') {
-        console.log(action.data)
+        console.log(action)
         return (
         {... oldState, 
             userProfile:  
                { ...oldState.userProfile,
                  first: action.data.first, 
                  last: action.data.last, 
-                 description: action.data.description, 
-                 goals: action.data.goals, 
+                 description: action.data.description,  
                  location: action.data.location }
             }
         )
-    } else if (action.type === 'ADD_GOAL') {
-        // console.log(action.newGoal)
+    } else if (action.type === 'UPDATE_GOALS') {
+        console.log(action)
         return (
             {... oldState, 
             goals: 
-            [
-                 ...oldState.goals,
-                action.newGoal
             
-        ]}
+                action.newGoals
+        }
         )
 
     } else {
@@ -36,7 +33,6 @@ let initialState = {
         "first": "",
         "last": "",
         "description": "",
-        "goals": "",
         "location": ""
     },
     "goals" : []

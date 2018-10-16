@@ -10,9 +10,7 @@ import {
 
 
 let Profile = (props) => {
-    // { console.log('------------') }
-    // { console.log('uo') }
-    // { console.log(props) }
+
     return <ScrollView style={styles.container}>
         <View style={styles.header}></View>
 
@@ -32,12 +30,15 @@ let Profile = (props) => {
 
                 <Text style={styles.goalsTitle}>Goals:</Text>
                 <View style={styles.goals}>
-                    {props.goals.map(goal => 
-                        goal !== null ? 
+                    {props.goals.length > 0 ? 
+                        
+                        props.goals.map(goal =>  
                             <Text style={styles.description} key={goal.id}> - {goal.goal}</Text>
+                        )
                         :
-                            <Text style={styles.description}> - {'You currently have no goals! Set them now!'} </Text>
-                    )}
+                        <Text style={styles.description}> - {'You currently have no goals! Set them now!'} </Text>
+                            
+                        }
                 </View>
                 <TouchableOpacity style={styles.buttonContainer} onPress={() => { props.navigator('GoalsScreen') }}>
                     <Text style={styles.button}> Set New Goals </Text>
@@ -73,6 +74,7 @@ const styles = StyleSheet.create({
     },
     goals: {
         //   alignSelf: 'center',
+        paddingLeft: 25,
         alignItems: 'flex-start'
     },
     nameContainer: {

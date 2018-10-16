@@ -14,7 +14,6 @@ class Step extends PureComponent {
           values: this.props.values,
         })}
         <View style={styles.buttonWrapper}>
-          {/* <Text> here </Text> */}
           <Button
             title="Previous"
             disabled={this.props.currentIndex === 0}
@@ -22,7 +21,6 @@ class Step extends PureComponent {
           />
           {this.props.isLast ? (
             <Button title="Submit" onPress={this.props.onSubmit} />
-            //login true
           ) : (
             <Button title="Next" onPress={this.props.nextForm} />
           )}
