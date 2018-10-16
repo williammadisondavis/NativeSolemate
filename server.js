@@ -103,10 +103,8 @@ let setUserGoals = (req, res) => {
         let goalsArray = data.goals;
         console.log(userID, goalsArray)
         
-        let arrayofobj = [];
         for (i=0; i<goalsArray.length; i++) {
             let newActivity = {id: userID, goal: goalsArray[i]};
-            newarray = new Array();
             console.log(newActivity)
             dbq.storeGoalbyUser(newActivity).then(goal => {
                 let newobj = goal;

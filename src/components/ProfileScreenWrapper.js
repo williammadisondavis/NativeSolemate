@@ -6,8 +6,8 @@ import Profile from './Profile';
 import axios from 'axios';
 
 let mapStateToProps = (state) => {
-    console.log('HFSFLK:HS:HFSHFHIUEFHIUEFIUEHFIUHEFIHIUEFHUI')
-    console.log(JSON.stringify(state))
+    // console.log('HFSFLK:HS:HFSHFHIUEFHIUEFIUEHFIUHEFIHIUEFHUI')
+    // console.log(state)
     return (state)
 }
 
@@ -70,7 +70,7 @@ render() {
     <View style={styles.container}>
         {this.state.profile ? 
         
-            <Profile profile={this.state.profile} signOut={this.signOutAsync} navigator={this.props.navigation.navigate}/>
+            <Profile goals={this.state.goals} profile={this.state.profile} signOut={this.signOutAsync} navigator={this.props.navigation.navigate}/>
         :
             <LoadingScreen />
         }
