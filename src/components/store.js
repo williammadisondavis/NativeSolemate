@@ -2,7 +2,7 @@ import { createStore } from 'redux';
 
 let reducer = (oldState, action) => {
     if (action.type === 'NEW_USER_PROFILE') {
-        console.log(action)
+        // console.log(action)
         return (
         {... oldState, 
             userProfile:  
@@ -14,7 +14,7 @@ let reducer = (oldState, action) => {
             }
         )
     } else if (action.type === 'UPDATE_GOALS') {
-        console.log(action)
+        // console.log(action)
         return (
             {... oldState, 
             goals: 
