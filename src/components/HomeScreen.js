@@ -1,22 +1,18 @@
 import React from 'react';
 import { StyleSheet, Text, View, Button, AsyncStorage, FlatList } from 'react-native';
 import getGoals from './getGoals';
+import getAllGoals from './getAllGoals';
 import getProfile from './getProfile';
 import { connect } from 'react-redux';
+import EachListItem from './eachItem';
+
+
 let mapStateToProps = (state) => {
-  // console.log(state)
   return (state)
-  
 }
 
-let EachListItem = (props) => 
-  <View>
-    <Text>{console.log(props)}</Text>
-    <Text>Title: {props.title}</Text>
-    <Text>id: {props.id}</Text>
-    <Text>userid: {props.userid}</Text>
-  </View>
 let keyExtractor = (item) => String(item.id);
+
 class MyListItem extends React.PureComponent {
   _onPress = () => {
     this.props.onPressItem(this.props.id);
@@ -25,7 +21,6 @@ class MyListItem extends React.PureComponent {
   render() {
     console.log(this.props)
     return (
-      // console.log('hi')
       <EachListItem
         {...this.props}
         onPress={this._onPress}
@@ -55,6 +50,7 @@ class HomeScreen extends React.PureComponent {
 
     getProfile(this.props.dispatch);
     getGoals(this.props.dispatch);
+    getAllGoals(this.props.dispatch);
 
   }
 
@@ -69,10 +65,10 @@ class HomeScreen extends React.PureComponent {
   );
 
   render() {
-    // console.log(this.props)
+    console.log(this.props)
     return (
       <FlatList
-        data={this.props.goals}
+        data={this.props.allGoals}
         extraData={this.state}
         keyExtractor={keyExtractor}
         renderItem={this._renderItem}

@@ -120,14 +120,23 @@ let setUserGoals = (req, res) => {
 }
 
 let getUserGoals = (req, res) => {
-    console.log('req.params.id');
     dbq.getGoalsbyUser(req.params.id).then(goals => {
         let newthing = goals;
         res.send({goals: newthing})
     })
 }
 
+let getAllGoals = (req, res) => {
+    console.log(req);
+    dbq.getAllGoals().then(goals => {
+        let newthing = goals;
+        // console.log(newthing)
+        res.send({allGoals: newthing})
+    })
+}
+
 server.post('/goals', setUserGoals);
+server.get('/allGoals', getAllGoals);
 server.get('/goals/:id', getUserGoals);
 server.get('/users/:id', retrieveProfile);
 server.post('/login', generateTokenHelper);

@@ -23,6 +23,14 @@ let reducer = (oldState, action) => {
         }
         )
 
+    } else if (action.type === 'ALL_GOALS') {
+        return (
+            {... oldState,
+            allGoals:
+                action.allGoals
+        }
+        )
+     
     } else {
     return oldState
     }
@@ -35,7 +43,8 @@ let initialState = {
         "description": "",
         "location": ""
     },
-    "goals" : []
+    "goals" : [],
+    "allGoals": []
           
 };
 

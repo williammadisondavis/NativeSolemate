@@ -40,5 +40,9 @@ module.exports = {
         return db.query(`SELECT *
         FROM goals
         WHERE userid = '` + id + `';`);
+    },
+    getAllGoals: function() {
+        return db.query(`SELECT *
+        FROM goals`)
     }
   };
