@@ -82,17 +82,55 @@ let newUser = (req, res) => {
 }
 
 let retrieveProfile = (req, res) => {
-    console.log(req.params)
+    // console.log(req.params)
     dbq.ListUserByID(req.params.id)
     .then((user, error) => {
         if (user !== null) {
-            console.log(user)
+            // console.log(user)
         res.send(user)
         } else {
             res.send({error: error})
         }
     })
 }
+
+
+let setUserGoals = (req, res) => {
+    // console.log(req.body);
+    //if they send empty body is should be able to remove goals
+    storeGoals = (data) => {
+        let userID = data.id;
+        let goalsArray = data.goals;
+        console.log(userID, goalsArray)
+        
+        let arrayofobj = [];
+        for (i=0; i<goalsArray.length; i++) {
+            let newActivity = {id: userID, goal: goalsArray[i]};
+            newarray = new Array();
+            console.log(newActivity)
+            dbq.storeGoalbyUser(newActivity).then(goal => {
+                let newobj = goal;
+                return newobj;   
+            })
+            
+            
+        }
+        res.send({response: 'worked'});
+    };
+    storeGoals(req.body)
+
+}
+
+let getUserGoals = (req, res) => {
+    console.log('req.params.id');
+    dbq.getGoalsbyUser(req.params.id).then(goals => {
+        let newthing = goals;
+        res.send({goals: newthing})
+    })
+}
+
+server.post('/goals', setUserGoals);
+server.get('/goals/:id', getUserGoals);
 server.get('/users/:id', retrieveProfile);
 server.post('/login', generateTokenHelper);
 server.post('/register', newUser);

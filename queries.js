@@ -30,5 +30,15 @@ module.exports = {
         return db.one(`SELECT *
             FROM users
             WHERE id = '` + id + `';`);
+    },
+    storeGoalbyUser: function(body) {
+        return db.one(`INSERT INTO goals (userid, goal) values
+        ('` + body.id + `', '` + body.goal + `')
+        RETURNING *;`)
+    },
+    getGoalsbyUser: function(id) {
+        return db.query(`SELECT *
+        FROM goals
+        WHERE userid = '` + id + `';`);
     }
   };

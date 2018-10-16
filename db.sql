@@ -11,3 +11,8 @@ CREATE TABLE users (
         goal3 varchar (255)
 );
 
+CREATE TABLE goals (
+        id serial primary key,
+        userid varchar(255),
+        goal varchar(255)
+);

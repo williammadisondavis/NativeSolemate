@@ -10,8 +10,8 @@ import {
 
 
 let Profile = (props) => {
-    { console.log('------------') }
-    { console.log(props) }
+    // { console.log('------------') }
+    // { console.log(props) }
     return <ScrollView style={styles.container}>
         <View style={styles.header}></View>
 

@@ -6,7 +6,8 @@ import Profile from './Profile';
 import axios from 'axios';
 
 let mapStateToProps = (state) => {
-    // console.log(state)
+    console.log('HFSFLK:HS:HFSHFHIUEFHIUEFIUEHFIUHEFIHIUEFHUI')
+    console.log(JSON.stringify(state))
     return (state)
 }
 
@@ -15,23 +16,15 @@ class ProfileScreenWrapper extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
+            goals: []
         }
-        // console.log(props)
-        // console.log(this.state)
-        // "userProfile": Object {
-        //     [23:12:23]     "description": "",
-        //     [23:12:23]     "first": "",
-        //     [23:12:23]     "goals": "",
-        //     [23:12:23]     "last": "",
-        //     [23:12:23]     "location": "",
-        //     [23:12:23]   },
         // console.log(props)
     }
     async componentDidMount() {
     
         try {
-            console.log('madeit')
-            console.log(this.props)
+            // console.log('madeit')
+            // console.log(this.props)
             const id = await AsyncStorage.getItem('id')
             if (id !== null) {
                 handleInput = async () => {
@@ -44,7 +37,18 @@ class ProfileScreenWrapper extends React.Component {
                         // console.log(this.state)
                         } else {
                             return (console.log('error'))
+                        }   getGoals = async () => {
+                            const res = await axios.get(`http://localhost:3005/goals/${id}`)
+                            const data = await res.data
+                            data.goals.map(goal => {
+                                this.state.goals.push(goal)
+                                // console.log(goal)
+                                this.props.dispatch({type: 'ADD_GOAL', newGoal: goal})
+                            })
+                            
                         }
+                        getGoals();
+
                 }
                 handleInput(); 
             }

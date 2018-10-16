@@ -14,11 +14,18 @@ let reducer = (oldState, action) => {
                  location: action.data.location }
             }
         )
-    } else if (action.type === 'NEW_NOTHING') {
-        // console.log(action.data)
+    } else if (action.type === 'ADD_GOAL') {
+        // console.log(action.newGoal)
+        return (
+            {... oldState, 
+            goals: 
+            [
+                 ...oldState.goals,
+                action.newGoal
+            
+        ]}
+        )
 
-        return (oldState)
-        
     } else {
     return oldState
     }
@@ -31,7 +38,9 @@ let initialState = {
         "description": "",
         "goals": "",
         "location": ""
-    }
+    },
+    "goals" : []
+          
 };
 
 let store = createStore(
