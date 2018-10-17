@@ -14,20 +14,20 @@ const forms = [
     name: 'last',
   },
   {
-    handle: 'How would you describe yourself as a runner?',
+    handle: 'Description...',
     name: 'description',
   },
   {
-    handle: 'location?',
+    handle: 'Location (City, State)',
     name: 'location',
   },
   {
-    handle: 'Your Email here',
+    handle: 'Email...',
     name: 'email',
     description: '',
   },
   {
-    handle: 'What will be your password?',
+    handle: 'Set a Password...',
     name: 'password',
     description: '', 
   }
