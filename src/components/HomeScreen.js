@@ -8,6 +8,7 @@ import EachListItem from './eachItem';
 
 
 let mapStateToProps = (state) => {
+
   return (state)
 }
 
@@ -18,8 +19,9 @@ class MyListItem extends React.PureComponent {
     this.props.onPressItem(this.props.id);
   };
 
+
+
   render() {
-    console.log(this.props)
     return (
       <EachListItem
         {...this.props}
@@ -34,7 +36,10 @@ class MyListItem extends React.PureComponent {
 class HomeScreen extends React.PureComponent {
   state = {selected: (new Map(): Map<string, boolean>)};
 
-  
+  getUserID = async () => {
+    const id = await AsyncStorage.getItem('id')
+    return id
+  };
 
   _onPressItem = (id: string) => {
     // updater functions are preferred for transactional updates
@@ -61,17 +66,19 @@ class HomeScreen extends React.PureComponent {
       onPressItem={this._onPressItem}
       selected={!!this.state.selected.get(item.id)}
       title={item.goal}
+      myid={this.getUserID}
     />
   );
 
   render() {
-    console.log(this.props)
+    // console.log(this.props.goals)
     return (
       <FlatList
         data={this.props.allGoals}
         extraData={this.state}
         keyExtractor={keyExtractor}
         renderItem={this._renderItem}
+        contentContainerStyle={styles.container}
       />
     );
   }
@@ -79,7 +86,7 @@ class HomeScreen extends React.PureComponent {
 
 
 const styles = StyleSheet.create({
-    container: { flex: 1, justifyContent: 'center', alignItems: 'center' },
+    container: {paddingTop: 40},
   });
   
 export default connect(mapStateToProps)(HomeScreen);

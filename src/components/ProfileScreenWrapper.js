@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, Text, View, Button, AsyncStorage } from 'react-native';
+import { StyleSheet, Text, View, Button, AsyncStorage, ImageBackground } from 'react-native';
 import { connect } from 'react-redux';
 import LoadingScreen from './LoadingScreen'
 import Profile from './Profile';
@@ -35,8 +35,9 @@ render() {
     return (
     <View style={styles.container}>
         {this.props.userProfile ? 
-        
+        <ImageBackground source={require('../assets/solemate.jpeg')} style={{ width: '100%', height: '100%' }}>
             <Profile profile={this.props.userProfile} goals={this.props.goals} signOut={this.signOutAsync} navigator={this.props.navigation.navigate}/>
+        </ImageBackground>
         :
             <LoadingScreen />
         }

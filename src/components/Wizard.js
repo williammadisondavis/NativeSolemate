@@ -1,6 +1,6 @@
 
 import React, { PureComponent } from 'react';
-import { StyleSheet, View, Text, Button, Alert, AsyncStorage } from 'react-native';
+import { StyleSheet, View, Text, Button, Alert, AsyncStorage, ImageBackground } from 'react-native';
 import axios from 'axios';
 import Step from './Step';
 
@@ -75,7 +75,7 @@ class Wizard extends PureComponent {
 
   render() {
     return (
-      <View style={{ flex: .8 }}>
+      <View style={{ flex: .7 }}>
       <Text style={styles.container}> Sign Up! </Text>
         {React.Children.map(this.props.children, (el, index) => {
           if (index === this.state.index) {
@@ -102,6 +102,8 @@ const styles = StyleSheet.create({
       alignSelf: 'center',
       fontSize: 50,
       fontWeight: "200",
+      color: 'white',
+      marginTop: 50
     },
   });
 

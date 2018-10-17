@@ -53,7 +53,7 @@ class LoginSubmission extends React.Component {
     return (
         <View style={styles.container}>
             <Text style={styles.title}>Sign In!</Text>
-            <View >
+            <View style={styles.inputs}>
             <TextInput style={styles.inputBox} type='text' onChangeText={(text) => { this.setState({email: text}) }} placeholder={'Enter Your Email'} />
             <View style={styles.spacer} />
             <TextInput style={styles.inputBox} type='text' onChangeText={(text) => { this.setState({password: text}) }} placeholder={'Enter Your Password'} />
@@ -69,17 +69,18 @@ const styles = StyleSheet.create({
     container: {
         flex: 1,
         alignItems: 'center',
-        justifyContent: 'space-between',
-        paddingTop: 140,
+        justifyContent: 'space-around',
+        paddingTop: 40,
         paddingBottom: 50,
     },
     title: {
         alignSelf: 'center',
         fontSize: 55,
-        fontWeight: "200"
+        fontWeight: "200",
+        color: 'white'
     },
     inputBox: {
-        backgroundColor: 'white',
+        backgroundColor: 'rgba(255, 255, 255, 0.61)',
         width: 280,
         height: 45,
         paddingHorizontal: 16,
@@ -90,6 +91,9 @@ const styles = StyleSheet.create({
       },
       spacer: {
           paddingTop: 30
+      },
+      inputs: {
+          paddingBottom: 90
       }
   });
 

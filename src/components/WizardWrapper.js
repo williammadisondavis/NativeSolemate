@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, Text, View, TextInput } from 'react-native';
+import { StyleSheet, Text, View, TextInput, ImageBackground } from 'react-native';
 import Wizard from './Wizard';
 import Input from './Input';
 import { connect } from 'react-redux';
@@ -45,6 +45,7 @@ class WizardWrapper extends React.Component {
   render() {
     return (
       <View style={styles.root}>
+      <ImageBackground source={require('../assets/solemate.jpeg')} style={{ width: '100%', height: '100%' }}>
         <Wizard
           initialValues={{
             first: '',
@@ -52,10 +53,7 @@ class WizardWrapper extends React.Component {
             email: '',
             password: '',
             description: '',
-            goal1: '',
-            goal2: '',
-            goal3: '',
-            location: '',
+            location: ''
           }}
           navigation={this.props.navigation.navigate}
           dispatch={this.props.dispatch}
@@ -65,7 +63,6 @@ class WizardWrapper extends React.Component {
               {({ onChangeValue, values }) => (
                 <View style={styles.container}>
                   <Input
-                    
                     onChangeValue={onChangeValue}
                     placeholder={e.handle}
                     value={values[e.name]}
@@ -76,6 +73,7 @@ class WizardWrapper extends React.Component {
             </Wizard.Step>
           ))}
         </Wizard>
+        </ImageBackground>
       </View>
     );
   }
@@ -86,20 +84,23 @@ const styles = StyleSheet.create({
     flex: 1,
     flexDirection: 'column-reverse',
     
-    backgroundColor: '#FFE5CC'
+    // backgroundColor: '#FFE5CC'
   },
   entireContainer: {
     flex: 1,
-    backgroundColor: '#FFE5CC',
+    // backgroundColor: '#FFE5CC',
     zIndex: 3,
   },
   container: {
     flex: 3,
-    backgroundColor: '#FFE5CC',
+    // backgroundColor: '#FFE5CC',
     justifyContent: 'space-between',
     alignItems: 'center',
     justifyContent: 'center',
   },
+  input:{
+
+  }
 });
 
 export default connect(mapStateToProps)(WizardWrapper)
